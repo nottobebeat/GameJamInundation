@@ -38,8 +38,12 @@ public class LittererScript : MonoBehaviour
 
     private void DropJunk()
     {
+        GameObject junkHolder = GameObject.Find("JunkHolder");
+        GameObject newJunk;
+
         Vector3 pos = new Vector3(transform.position.x, transform.position.y, 0f);
-        Instantiate(junk[Random.Range(0, junk.Length)], pos, Quaternion.identity);
+        newJunk = Instantiate(junk[Random.Range(0, junk.Length)], pos, Quaternion.identity) as GameObject;
+        if (junkHolder != null) newJunk.transform.SetParent(junkHolder.transform);
     }
     
     private void OnTriggerEnter2D(Collider2D other)
