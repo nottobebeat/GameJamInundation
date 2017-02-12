@@ -24,6 +24,7 @@ public class ParticleSystemScript : MonoBehaviour
             {
                 particleSystem.Pause();
                 particleSystem.Clear();
+                GameManager.instance.StopBushBurning();
             }
         }
 	}

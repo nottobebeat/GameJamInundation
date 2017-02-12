@@ -70,6 +70,7 @@ public class TruckScript : MonoBehaviour
         waste.SetActive(true);
         dumpingWaste = false;
         dumpedWaste = true;
+        GameManager.instance.StartPondWaste();
         yield return null;
     }
 }

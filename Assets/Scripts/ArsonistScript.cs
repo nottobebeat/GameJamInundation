@@ -66,6 +66,7 @@ public class ArsonistScript : MonoBehaviour
         detected = true;
         startingFire = false;
         particleSystem.GetComponent<ParticleSystem>().Play();
+        GameManager.instance.StartBushBurning();
         yield return null;
     }
 }

@@ -26,6 +26,7 @@ public class WasteScript : MonoBehaviour
                 renderer.material = defaultMaterial;
                 interactable = false;
                 gameObject.SetActive(false);
+                GameManager.instance.StopPondWaste();
             }
         }
 	}

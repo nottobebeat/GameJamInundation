@@ -44,6 +44,7 @@ public class LittererScript : MonoBehaviour
         Vector3 pos = new Vector3(transform.position.x, transform.position.y, 0f);
         newJunk = Instantiate(junk[Random.Range(0, junk.Length)], pos, Quaternion.identity) as GameObject;
         if (junkHolder != null) newJunk.transform.SetParent(junkHolder.transform);
+        GameManager.instance.AddTrash();
     }
     
     private void OnTriggerEnter2D(Collider2D other)

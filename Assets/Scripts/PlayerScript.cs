@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     private int inventoryLeft;
+    private Animator animator;
 
     public float moveSpeed = 5;
     public int inventorySpace = 3;
@@ -18,6 +19,7 @@ public class PlayerScript : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         inventoryLeft = inventorySpace;
         SetInventoryText();
+        animator = GetComponent<Animator>();
 	}
 	
 	void Update ()
@@ -25,8 +27,19 @@ public class PlayerScript : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        Vector2 move = new Vector2(moveHorizontal, moveVertical) * moveSpeed; // * Time.deltaTime?
+        Vector2 move = new Vector2(moveHorizontal, moveVertical) * moveSpeed;
+        Quaternion rotation = gameObject.transform.rotation;
+        if(move.x != 0 || move.y != 0)
+            animator.SetBool("PlayerWalking", true);
+        else
+            animator.SetBool("PlayerWalking", false);
+        if (move.x < 0)
+            rotation.y = 180;
+        else if (move.x > 0)
+            rotation.y = 0;
 
+
+        gameObject.transform.rotation = rotation;
         rb2d.velocity = move;
 	}
 
@@ -39,6 +52,7 @@ public class PlayerScript : MonoBehaviour
                 GameObject.Destroy(other.gameObject);
                 inventoryLeft--;
                 SetInventoryText();
+                GameManager.instance.SubtractTrash();
             }
         }
         if(other.CompareTag("GarbageCan"))
