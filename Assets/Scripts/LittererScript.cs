@@ -11,6 +11,7 @@ public class LittererScript : MonoBehaviour
     public float moveSpeed = 4;
     public float junkSpawn = 3;
     public float junkVariance = .5f;
+    public float junkPositionVariance = 8;
     public GameObject[] junk;
 
 	public void  Start ()
@@ -34,6 +35,9 @@ public class LittererScript : MonoBehaviour
     public void SwapDirection()
     {
         moveSpeed *= -1;
+        Quaternion newRotation = gameObject.transform.rotation;
+        newRotation.y += 180;
+        gameObject.transform.rotation = newRotation;
     }
 
     private void DropJunk()
@@ -41,7 +45,8 @@ public class LittererScript : MonoBehaviour
         GameObject junkHolder = GameObject.Find("JunkHolder");
         GameObject newJunk;
 
-        Vector3 pos = new Vector3(transform.position.x, transform.position.y, 0f);
+        float offset = Random.Range(-junkPositionVariance, junkPositionVariance);
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y + offset, 0f);
         newJunk = Instantiate(junk[Random.Range(0, junk.Length)], pos, Quaternion.identity) as GameObject;
         if (junkHolder != null) newJunk.transform.SetParent(junkHolder.transform);
         GameManager.instance.AddTrash();

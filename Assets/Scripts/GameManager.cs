@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     private bool bushBurning;
 
     public static GameManager instance = null;
+    public AudioClip gameOverSound;
+    public GameObject gameOverMenu;
     public Text parkHealthText;
     
 
@@ -21,12 +23,13 @@ public class GameManager : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         parkHealth = 100f;
         gameOver = false;
         pondScumming = false;
         bushBurning = false;
+        gameOverMenu.SetActive(false);
 	}
 	
 	void Update ()
@@ -75,11 +78,19 @@ public class GameManager : MonoBehaviour
     {
         if (parkHealth <= 0)
         {
-            parkHealthText.text = "Game Over";
+            parkHealthText.text = "Park Health: 0";
+            EndGame();
         }
         else
         {
             parkHealthText.text = "Park Health: " + Mathf.Ceil(parkHealth);
         }
+    }
+
+    private void EndGame()
+    {
+        Time.timeScale = 0f;
+        SoundManager.instance.PlaySingle(gameOverSound);
+        gameOverMenu.SetActive(true);
     }
 }
