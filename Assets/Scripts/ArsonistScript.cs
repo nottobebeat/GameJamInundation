@@ -39,7 +39,7 @@ public class ArsonistScript : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Bush2"))
                 {
-                    StartCoroutine(SetFire(hit.collider.gameObject));
+                    StartCoroutine(SetFire());
                 }
             }
             rb2d.velocity = new Vector2(-moveSpeed, 0);
@@ -54,7 +54,7 @@ public class ArsonistScript : MonoBehaviour
         }
     }
 
-    IEnumerator SetFire(GameObject toDestroy)
+    IEnumerator SetFire()
     {
         float ellapsedTime = 0;
         startingFire = true;
@@ -66,7 +66,6 @@ public class ArsonistScript : MonoBehaviour
         detected = true;
         startingFire = false;
         particleSystem.GetComponent<ParticleSystem>().Play();
-        GameObject.Destroy(toDestroy);
         yield return null;
     }
 }

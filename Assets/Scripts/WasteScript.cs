@@ -24,6 +24,7 @@ public class WasteScript : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 renderer.material = defaultMaterial;
+                interactable = false;
                 gameObject.SetActive(false);
             }
         }

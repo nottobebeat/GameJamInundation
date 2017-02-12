@@ -20,7 +20,6 @@ public class AIManagerScript : MonoBehaviour
 
     public GameObject arsonist;
     public Transform arsonistSpawn;
-    public GameObject bush;
     public ParticleSystem particleSystem;
     public float arsonistSpawnInterval = 5;
 
@@ -96,7 +95,7 @@ public class AIManagerScript : MonoBehaviour
 
     private void UpdateArsonist()
     {
-        if (bush != null)
+        if (particleSystem.isPaused)
         {
             arsonistEllapsedTime += Time.deltaTime;
             if (arsonistEllapsedTime > arsonistSpawnInterval)
